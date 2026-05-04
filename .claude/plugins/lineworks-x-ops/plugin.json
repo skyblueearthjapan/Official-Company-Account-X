@@ -1,0 +1,10 @@
+{
+  "name": "lineworks-x-ops",
+  "version": "0.1.0",
+  "description": "Watercolor 4-koma manga production pipeline for LINEWORKS official X account",
+  "author": {
+    "name": "今泉課長 (LINEWORKS Co., Ltd.)",
+    "email": "imaizumi@lineworks.co.jp"
+  },
+  "homepage": "https://lineworks.info/"
+}

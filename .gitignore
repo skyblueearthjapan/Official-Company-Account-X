@@ -1,0 +1,40 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Secrets
+.env
+.env.*
+!.env.example
+**/auth.json
+**/credentials*
+**/*.pem
+**/*.key
+
+# Codex local data (must NOT be committed — contains auth tokens)
+**/.codex/auth.json
+
+# Claude / OMC local state
+.claude/settings.local.json
+.omc/state/
+.omc/logs/
+.omc/sessions/
+
+# Generated artifacts that shouldn't be tracked
+**/__pycache__/
+node_modules/
+*.log
+*.tmp
+*.bak
+*.bak.*
+
+# Large binary outputs from experiments (kept in episodes/<id>/patterns/* by design)
+# but ignore tmp/ scratch
+tmp/
+scratch/
