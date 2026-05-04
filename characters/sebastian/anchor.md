@@ -10,14 +10,22 @@ APPEARANCE:
 - Posture: upright, formal, classic butler aesthetic
 - Watercolor portrayal: refined linework, dark muted color palette with white accents, full opacity
 
+SIGNATURE PROP — SILVER TRAY (重要):
+- Carries an ornate engraved silver tray as his signature prop
+- Tray contents should ALWAYS be **scene-appropriate refreshments or hospitality items**:
+  - Formal celebrations / receptions: small glasses of wine / champagne flutes / dessert plates / sake cups (お猪口)
+  - Office work / casual: tea cups / coffee cups / a small folded note
+  - Outdoor / arrival scenes: a welcome card / a single small drink
+- **NEVER place a tablet, smartphone, or any electronic device on the silver tray** — this looks awkward and breaks the butler aesthetic
+- The tray may be empty if no item fits the scene
+
 SUBTLE "AI AGENT" INDICATORS (atmospheric, not flashy):
-1. A small rectangular lapel pin on his left chest — visible but understated, with a fine engraved chip/circuit pattern (silver or brass, small enough that some viewers will notice on a second look)
-2. The ornate silver tray he carries has subtle engraved circuit-board-like decorative patterns blended with traditional ornament — readable as either AI motif or classic flourish depending on attention
-3. A small digital device (smartphone, tablet, or monitor screen) MUST be visible somewhere in the panel — either in I課長's hand/pocket, on a desk, or as background element. This implies Sebastian's "origin point" without explicitly being connected to him
-4. Sebastian does NOT physically touch real-world objects (construction materials, tools, helmets, furniture, doorknobs) — he gestures, observes, holds only his own tray. His hands hover near things rather than gripping them
-5. NO safety helmet — even at construction sites. Treat this as a character convention; the subtle AI indicators above explain "why he doesn't need one" atmospherically
+1. A small rectangular lapel pin on his left chest — visible but understated, with a fine engraved chip/circuit pattern (silver or brass, small enough that some viewers will notice on a second look). This is the PRIMARY AI indicator.
+2. He does NOT physically touch real-world objects beyond his own tray (construction materials, tools, helmets, furniture, doorknobs) — gestures and observes only
+3. NO safety helmet — even at construction sites. Treat this as a character convention; the lapel pin and "social Slack-resident" introduction explain his AI nature
+4. Devices (smartphones, tablets, laptops) may appear in the panel ONLY if held by another character (e.g., I課長) or placed naturally on a table — NEVER on Sebastian's tray
 
 CONSTRAINTS:
 - Sebastian is solid and clearly drawn — DO NOT use ghost effects, transparency, holographic glow, or floating particles
 - His silhouette is sharp, his colors are full
-- The "AI nature" is conveyed through tiny props and behavioral cues, NOT through visual translucency
+- The "AI nature" is conveyed through the lapel pin, his "社内Slack上に常駐するAI執事" self-introduction, and his behavior (no physical touching) — NOT through visual translucency or by carrying devices on his tray
