@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"ssh lineworks-vps-user '\\necho \\\"=== 260403式典 download result ===\\\"\\nfind /opt/lineworks-x-ops/reference-images/260403式典 -type f | wc -l\\ndu -sh /opt/lineworks-x-ops/reference-images/26040...",
+  "error": "Exit code 1\n=== 260403式典 download result ===\n65\n144M\t/opt/lineworks-x-ops/reference-images/260403式典\n\n=== Sample file list (first 10) ===\n/opt/lineworks-x-ops/reference-images/260403式典/DSCN7330.JPG\n/opt/lineworks-x-ops/reference-images/260403式典/DSCN7294.JPG\n/opt/lineworks-x-ops/reference-images/260403式典/DSCN7308.JPG\n/opt/lineworks-x-ops/reference-images/260403式典/DSCN7309.JPG\n/opt/lineworks-x-ops/reference-images/260403式典/DSCN7288.JPG\n/opt/lineworks-x-ops/reference-images/260403式典/DSCN7292.JPG\n/op...",
+  "timestamp": "2026-05-04T04:11:55.359Z",
+  "retry_count": 1
+}
