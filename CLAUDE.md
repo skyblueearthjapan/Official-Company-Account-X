@@ -56,15 +56,22 @@
 
 ### A. ユーザーがテーマだけ渡してきた場合（お任せモード）
 
-```
-/new-4koma "<テーマ>"
-```
+ユーザーは以下のいずれかでリクエストしてくる：
+- 明示的: `/new-4koma "<テーマ>"`
+- **自然文**: 「設計の1日を4コマ漫画にまとめて」「カフェスペースで朝のコーヒーの話を作って」など
 
-→ `manga-director` agent を呼び出す
-→ episode フォルダ作成（`episodes/<NNN>-<YYYY-MM-DD>-<title>/`）
-→ 4 patterns a/b/c/d を並列生成（各 plot 案 + 画像）
-→ 4 枚を Discord に Bot 経由でアップロード
-→ ユーザーが選定 → `/finalize-4koma` で確定
+**自然文の場合も同じ扱い**：4コマ漫画作成依頼として認識し、フルパイプラインを起動する。
+
+→ 次の手順:
+  1. 次のエピソード番号を判定: `ls episodes/ | grep -oE '^[0-9]{3}' | sort -n | tail -1` + 1
+  2. エピソード ID 命名: `<NNN>-<YYYY-MM-DD>-<短い日本語タイトル>`（YYYY-MM-DD は投稿予定日 = 通常今日から1週間後）
+  3. `episodes/<id>/{theme.md, README.md}` 作成 + `patterns/pattern-{a,b,c,d}/` 作成
+  4. 4 patterns の plot.md を並列生成（または各々で異なる方向性を持つように構成）
+  5. `compose-prompt.sh` + `invoke-codex.sh` を 4 並列で実行（各 pattern 個別）
+  6. 結果 4 枚を Discord に scripts/upload_to_discord.py 経由で投稿
+  7. ユーザー選定待ちの状態で完了報告
+
+これ全体の所要時間: 5〜8分（並列生成）
 
 ### B. ユーザーが具体的な構成イメージを持っている場合
 
