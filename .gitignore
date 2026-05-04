@@ -38,3 +38,6 @@ node_modules/
 # but ignore tmp/ scratch
 tmp/
 scratch/
+
+# Reference images synced from Google Drive (managed via scripts/sync-reference-images.sh)
+reference-images/

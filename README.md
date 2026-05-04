@@ -24,6 +24,8 @@ Currently in **Phase 1**: building the 4-koma production pipeline.
 | `characters/` | Character sheets (profile, anchor prompt, reference images) |
 | `style-guide/` | Watercolor style presets (shinkai_default / picturebook / ghibli_bg) |
 | `episodes/` | Per-episode artifacts (4 patterns + final) |
+| `reference-images/` | **(VPS only, gitignored)** Google Drive synced photos for scene references — see `reference-images-CATALOG.md` |
+| `scripts/` | Sync scripts and Discord bot |
 | `news/` | News posts (Phase 3) |
 | `analytics/` | X analytics output (Phase 3) |
 | `docs/` | Specs, plans, runbooks, ADRs |
