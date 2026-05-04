@@ -1,11 +1,12 @@
 # 株式会社ラインワークス 公式X運用ワークスペース
 
-This is the workspace and Claude Code plugin for operating LINEWORKS' official X (Twitter) account.
+This is the workspace and Claude Code plugin for operating (株)ラインワークスの公式X account.
 
 ## Overview
 
 Two content streams:
-1. **Weekly 4-koma manga** (watercolor-style, recurring cast: 今泉課長 / セバスチャン)
+1. **Weekly 4-koma manga** (watercolor-style, recurring cast: **I課長** / **セバスチャン (AI Agent 執事)**)
+   - Each image carries a top banner: `(株)ラインワークス★ 公式アカウント X 4コマコンテンツ No.NNN`
 2. **Ad-hoc news posts** (recruitment, awards, patents, etc.) — Phase 3
 
 Currently in **Phase 1**: building the 4-koma production pipeline.
@@ -40,4 +41,4 @@ Currently in **Phase 1**: building the 4-koma production pipeline.
 
 ## Contact
 
-今泉課長 (設計部) — 株式会社ラインワークス
+I課長 (設計部) — 株式会社ラインワークス

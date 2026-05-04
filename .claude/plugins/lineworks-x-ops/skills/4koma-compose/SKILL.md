@@ -18,8 +18,8 @@ Generate one 4-panel manga plot from a theme prompt.
 
 Available characters (read from `characters/<id>/profile.md`):
 
-- `imaizumi` — 設計部の今泉課長、主人公格
-- `sebastian` — AI執事、解説役、銀のトレイ
+- `i_kacho` — 株式会社ラインワークス 設計部 I課長、主人公格（氏名は意図的にイニシャル表記）
+- `sebastian` — 社内専用AI執事 AI Agent 執事 セバスチャン、解説役、銀のトレイ
 
 ## Composition rules
 

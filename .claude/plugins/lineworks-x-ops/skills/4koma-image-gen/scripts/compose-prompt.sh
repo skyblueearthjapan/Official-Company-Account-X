@@ -29,11 +29,24 @@ STYLE_FRAGMENT="$WORKSPACE_ROOT/style-guide/$STYLE_PRESET/prompt-fragment.md"
 # Extract cast IDs from plot.md (lines under "## Cast" until next ## heading)
 CAST_IDS=$(awk '/^## Cast$/{flag=1; next} /^## /{flag=0} flag && /^- /{print substr($0,3)}' "$PLOT_FILE")
 
+# Derive episode number from pattern_dir path (.../episodes/NNN-...)
+EP_NUM=$(echo "$PATTERN_DIR" | grep -oE '/episodes/[0-9]{3}' | grep -oE '[0-9]{3}' | head -1)
+[[ -z "$EP_NUM" ]] && EP_NUM="???"
+
 # Compose prompt.md
 {
   echo "[BASE]"
-  echo "A 4-panel manga (yonkoma) in vertical layout, watercolor style, with speech bubbles containing the Japanese dialogue text from each panel exactly as written in the [SCENE] block below."
-  echo "Panels are clearly separated with thin borders. Read top-to-bottom."
+  echo "A vertical 4-panel manga (yonkoma) image with a header banner row at the very top, watercolor style, with speech bubbles containing the Japanese dialogue text from each panel exactly as written in the [SCENE] block below."
+  echo ""
+  echo "Image layout TOP-DOWN:"
+  echo "  1. Header banner row (full width, ~8% of total image height): clean white/cream background with a thin horizontal line below; centered Japanese text in modern sans-serif font, dark navy color. The banner text must read EXACTLY:"
+  echo "     (株)ラインワークス★ 公式アカウント X 4コマコンテンツ No.${EP_NUM}"
+  echo "  2. Panel 1 (起): below the banner."
+  echo "  3. Panel 2 (承): below Panel 1."
+  echo "  4. Panel 3 (転): below Panel 2."
+  echo "  5. Panel 4 (結): at the bottom."
+  echo ""
+  echo "Panels are clearly separated with thin black borders. Read top-to-bottom."
   echo ""
   echo "[STYLE]"
   cat "$STYLE_FRAGMENT"

@@ -15,7 +15,7 @@ Take a free-text theme (お題) from the user and produce 4 distinct watercolor 
 ## Workspace conventions
 
 - Project root: `C:\Users\imaizumi.LINEWORKS-NET\Documents\会社公式アカウントＸ運用\` (use forward slashes in Bash)
-- Cast catalog: `imaizumi`, `sebastian` (read `characters/<id>/profile.md` if you need detail)
+- Cast catalog: `i_kacho`, `sebastian` (read `characters/<id>/profile.md` if you need detail)
 - Style presets: `shinkai_default` (default), `picturebook`, `ghibli_bg`
 
 ## Pipeline
