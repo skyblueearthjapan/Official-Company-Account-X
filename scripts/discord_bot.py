@@ -34,6 +34,10 @@ ALLOWED_USER_IDS = {int(x) for x in _allowed.split(",") if x.strip().isdigit()}
 # Claude CLI command timeout (seconds). 4コマ生成は5-8分かかる
 CLAUDE_TIMEOUT = 600
 
+# X 投稿関連
+X_TWEET_LIMIT = 280
+PUBLISH_APPROVAL_TIMEOUT = 600  # ボタン待機 10 分
+
 # ============================================================
 # Logging
 # ============================================================
@@ -114,6 +118,141 @@ async def run_claude(prompt: str) -> tuple[int, str, str, float]:
 
 
 # ============================================================
+# X 投稿: 承認ボタン UI
+# ============================================================
+class PublishApprovalView(discord.ui.View):
+    """投稿前の最終承認 View。✅承認 / ❌キャンセル のボタン2つ。"""
+
+    def __init__(self, *, episode_id: str, requester_id: int):
+        super().__init__(timeout=PUBLISH_APPROVAL_TIMEOUT)
+        self.episode_id = episode_id
+        self.requester_id = requester_id
+        self.decided = False
+        self.message: discord.Message | None = None
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        if interaction.user.id != self.requester_id:
+            await interaction.response.send_message(
+                "このボタンは `!publish` を打った本人のみ操作できます。",
+                ephemeral=True,
+            )
+            return False
+        return True
+
+    async def _disable_buttons(self):
+        for child in self.children:
+            if isinstance(child, discord.ui.Button):
+                child.disabled = True
+
+    @discord.ui.button(
+        label="✅ 承認して X に投稿", style=discord.ButtonStyle.success
+    )
+    async def approve(
+        self, interaction: discord.Interaction, button: discord.ui.Button
+    ):
+        self.decided = True
+        await self._disable_buttons()
+        await interaction.response.edit_message(
+            content=f"⏳ X に投稿中… `{self.episode_id}`",
+            view=self,
+        )
+
+        try:
+            from post_to_x import post_episode
+
+            result = await asyncio.to_thread(
+                post_episode,
+                self.episode_id,
+                approved_by=str(interaction.user.id),
+            )
+        except Exception as e:
+            log.exception("Publish failed for %s", self.episode_id)
+            await interaction.followup.send(f"❌ 投稿失敗: `{e}`")
+            self.stop()
+            return
+
+        await interaction.followup.send(
+            "✅ **投稿完了**\n"
+            f"- episode: `{self.episode_id}`\n"
+            f"- tweet_id: `{result.tweet_id}`\n"
+            f"- URL: {result.url}\n"
+            f"- 投稿時刻: `{result.posted_at.isoformat()}`"
+        )
+        self.stop()
+
+    @discord.ui.button(label="❌ キャンセル", style=discord.ButtonStyle.secondary)
+    async def cancel(
+        self, interaction: discord.Interaction, button: discord.ui.Button
+    ):
+        self.decided = True
+        await self._disable_buttons()
+        await interaction.response.edit_message(
+            content=f"❌ キャンセルしました（`{self.episode_id}`）",
+            view=self,
+        )
+        self.stop()
+
+    async def on_timeout(self):
+        if self.decided or self.message is None:
+            return
+        await self._disable_buttons()
+        try:
+            await self.message.edit(
+                content=(
+                    f"⏰ タイムアウト（{PUBLISH_APPROVAL_TIMEOUT // 60}分）— "
+                    f"投稿はキャンセルされました（`{self.episode_id}`）"
+                ),
+                view=self,
+            )
+        except discord.HTTPException:
+            pass
+
+
+async def handle_publish_command(message: discord.Message, episode_id: str):
+    """!publish <ep-id> 実行時のハンドラ。プレビュー + 承認ボタンを表示する。"""
+    try:
+        from post_to_x import EpisodePost
+
+        episode = EpisodePost.load(episode_id)
+    except FileNotFoundError as e:
+        await message.channel.send(f"❌ {e}")
+        return
+    except ValueError as e:
+        await message.channel.send(f"❌ 投稿本文の検証に失敗: `{e}`")
+        return
+    except ImportError as e:
+        await message.channel.send(
+            f"❌ post_to_x モジュール読込失敗: `{e}` "
+            "(VPS で `pip install -r requirements.txt` を実行してください)"
+        )
+        return
+
+    char_count = len(episode.body_text)
+    preview = (
+        f"📝 **投稿プレビュー** — `{episode_id}`\n"
+        f"```\n{episode.body_text}\n```\n"
+        f"文字数: **{char_count}/{X_TWEET_LIMIT}** ｜ "
+        f"画像: `{episode.image_path.relative_to(PROJECT_ROOT)}`\n\n"
+        f"⚠️ 承認すると **本番アカウント** に即投稿します。\n"
+        f"承認/キャンセルは {PUBLISH_APPROVAL_TIMEOUT // 60} 分以内にどうぞ。"
+    )
+
+    view = PublishApprovalView(
+        episode_id=episode_id,
+        requester_id=message.author.id,
+    )
+    sent = await message.channel.send(
+        content=preview,
+        file=discord.File(str(episode.image_path)),
+        view=view,
+    )
+    view.message = sent
+    log.info(
+        f"Publish preview sent: episode={episode_id}, requester={message.author}"
+    )
+
+
+# ============================================================
 # Discord client
 # ============================================================
 intents = discord.Intents.default()
@@ -154,6 +293,19 @@ async def on_message(message: discord.Message):
             return
 
     log.info(f"Received from {message.author} in #{message.channel}: {content[:120]!r}")
+
+    # ----- Special command: !publish <episode-id> -----
+    # Claude には流さず、X 投稿の承認フローを開始する
+    if content.startswith("!publish"):
+        parts = content.split(maxsplit=2)
+        if len(parts) < 2 or not parts[1].strip():
+            await message.channel.send(
+                "使い方: `!publish <episode_id>`\n"
+                "例: `!publish 001-2026-05-11-新拠点完成PR1`"
+            )
+            return
+        await handle_publish_command(message, parts[1].strip())
+        return
 
     # Acknowledge immediately
     await message.add_reaction("⏳")
