@@ -8,11 +8,20 @@ Discord Bot for LINEWORKS X-Ops
 import asyncio
 import logging
 import os
+import re
 import time
 from pathlib import Path
 
 import discord
 from dotenv import load_dotenv
+
+# ============================================================
+# 自然文・スラッシュ経由の投稿依頼検出
+# ============================================================
+# Claude の応答末尾に `!publish <episode_id>` が単独行で現れたら自動で承認フロー起動
+# - re.MULTILINE: 各行頭で ^ がマッチ
+# - episode_id は \S+ で 非空白文字列を吸う（日本語含む）
+PUBLISH_MARKER_RE = re.compile(r"^!publish[ \t]+(\S+)[ \t]*$", re.MULTILINE)
 
 # ============================================================
 # Config
@@ -343,6 +352,21 @@ async def on_message(message: discord.Message):
 
     # Upload new PNGs
     await upload_pngs(message.channel, new_pngs)
+
+    # Claude の応答末尾に !publish マーカーがあれば承認フローを自動起動
+    # （CLAUDE.md §D / skills/x-publish の仕様）
+    if rc == 0 and stdout:
+        match = PUBLISH_MARKER_RE.search(stdout)
+        if match:
+            ep_id = match.group(1).strip()
+            log.info(
+                f"Auto-detected publish marker from Claude output: episode_id={ep_id}"
+            )
+            await message.channel.send(
+                f"🤖 Claude が投稿マーカーを検出しました → "
+                f"`{ep_id}` の承認フローを起動します"
+            )
+            await handle_publish_command(message, ep_id)
 
     log.info(
         f"Done in {elapsed:.1f}s: rc={rc}, stdout={len(stdout)}b, "
