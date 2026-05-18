@@ -45,3 +45,7 @@ reference-images/
 # Google Workspace MCP credentials (service account JSON) — NEVER commit
 google-creds/
 **/service-account.json
+
+# Schedule queue (runtime state, per-VPS)
+scheduled-posts.json
+scheduled-posts.json.tmp
