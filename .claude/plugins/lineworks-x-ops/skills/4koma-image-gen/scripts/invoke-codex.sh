@@ -6,6 +6,7 @@
 #
 # Reads:
 #   <pattern_dir>/prompt.md
+#   <pattern_dir>/refs/*.png (per-pattern scene/prop references, optional)
 #   <workspace_root>/characters/<cid>/reference/*.png (for each cast member)
 #   <workspace_root>/style-guide/<preset>/samples/*.png
 #
@@ -54,6 +55,12 @@ shopt -s nullglob
 for img in "$WORKSPACE_ROOT/style-guide/$STYLE_PRESET/samples/"*.png; do
   REF_ARGS+=(-i "$img")
 done
+# Per-pattern scene/prop references (optional)
+if [[ -d "$PATTERN_DIR/refs" ]]; then
+  for img in "$PATTERN_DIR/refs/"*.png; do
+    REF_ARGS+=(-i "$img")
+  done
+fi
 shopt -u nullglob
 
 # --- Invoke Codex ---
