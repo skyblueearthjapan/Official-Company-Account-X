@@ -33,17 +33,18 @@
 - `refs/office_team_desks.png` — 設計室のチームデスク群（クラスター席、木目天板、白キャビネット、IP電話、ダーク木製本棚が背景、IMG_2786）
 - `refs/office_overview.png` — 設計室全体（緑カーペット、独立した課長デスク見える、IMG_2784）
 
-### 組立フロア（コマ2-4 用）
-- `refs/floor_factory_wide.png` — 組立フロアの全景（高天井、黄色クレーン、ライムグリーン床、緑色の長大フレーム）
-- `refs/floor_two_workers_crouch.png` — 床に並べた白い部品を 2 人作業員が屈み込んで組付（白ヘル＋紺作業着）
-- `refs/floor_completed_positioner.png` — 蛇腹カバー付き2柱ポジショナー（青と白、IMG_2647、コマ4 副リファレンス）
+### 組立フロア（コマ2-3 用）
+- `refs/floor_factory_wide.png` — 組立フロアの全景（高天井、黄色クレーン、ライムグリーン床）
+- `refs/floor_two_workers_crouch.png` — 床に並べた部品を 2 人作業員が屈み込んで組付
 
 ### 設備のパーツ（コマ2-3 詳細用）
-- `refs/motor_yaskawa_closeup.png` — **YASKAWA AC サーボモーター**（黒い金属、フィン付き、配線、IMG_2775）
-- `refs/motor_servo_closeup.png` — グレーのサーボモーター詳細（IMG_2780）
+- `refs/motor_servo_closeup.png` — **白〜グレー塗装のサーボモーター**（IMG_2780、v5 で採用）
+- `refs/motor_yaskawa_closeup.png` — YASKAWA AC サーボ（補助、黒い金属）
 
-### 完成機械（コマ4 主リファレンス）
-- `refs/finished_robot_alt.png` — **白い大型ターンテーブル + ガントリーアーム機械**（IMG_2686、コマ4 推奨）
+### 完成機械（コマ4 主リファレンス、カタログ画像）
+- `refs/catalog_skette_5000r_main.png` — **SUPER SKETTE ROBO 5000R** メインカタログ（白基調 + 青フランジ + L字ブーム）
+- `refs/catalog_skette_lineup_a.png` — 5000R/4000R/3000R 多機種カタログ
+- `refs/catalog_skette_lineup_b.png` — 2000R/3000R 詳細カタログ
 
 ## 投稿予定
 
