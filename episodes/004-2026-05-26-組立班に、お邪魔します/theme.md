@@ -26,13 +26,24 @@
 - ぐったり・必死さの中に**ほっこり**
 - 全コマ通して「これ、僕にもできるかな」と読者が思える等身大の描写
 
-## 参考写真（自動 attach）
+## 参考写真（自動 attach、9 枚）
 
-- `refs/office_design_IMG_2535.png` — 千葉本社 2階技術部ルーム全景（緑チェッカーカーペット、白机、HP モニター、ダーク木製本棚、大判プリンター）
-- `refs/office_design_IMG_2541.png` — 設計室の個別デスク詳細（重厚な木製デスク、ダーク木製本棚にファイル群）
+### 設計室（コマ1 用）
+- `refs/office_ikacho_desk.png` — **I課長 のデスク**（中央に独立した白いガラス天板の課長席、モニター1台＋ラップトップ、IMG_2787）
+- `refs/office_team_desks.png` — 設計室のチームデスク群（クラスター席、木目天板、白キャビネット、IP電話、ダーク木製本棚が背景、IMG_2786）
+- `refs/office_overview.png` — 設計室全体（緑カーペット、独立した課長デスク見える、IMG_2784）
+
+### 組立フロア（コマ2-4 用）
 - `refs/floor_factory_wide.png` — 組立フロアの全景（高天井、黄色クレーン、ライムグリーン床、緑色の長大フレーム）
 - `refs/floor_two_workers_crouch.png` — 床に並べた白い部品を 2 人作業員が屈み込んで組付（白ヘル＋紺作業着）
-- `refs/floor_completed_positioner.png` — 完成間近の大型ポジショナー（蛇腹カバー付き 2 柱、青と白、緑ベース、IMG_2647 そのまま）
+- `refs/floor_completed_positioner.png` — 蛇腹カバー付き2柱ポジショナー（青と白、IMG_2647、コマ4 副リファレンス）
+
+### 設備のパーツ（コマ2-3 詳細用）
+- `refs/motor_yaskawa_closeup.png` — **YASKAWA AC サーボモーター**（黒い金属、フィン付き、配線、IMG_2775）
+- `refs/motor_servo_closeup.png` — グレーのサーボモーター詳細（IMG_2780）
+
+### 完成機械（コマ4 主リファレンス）
+- `refs/finished_robot_alt.png` — **白い大型ターンテーブル + ガントリーアーム機械**（IMG_2686、コマ4 推奨）
 
 ## 投稿予定
 
